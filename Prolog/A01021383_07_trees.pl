@@ -78,6 +78,7 @@ print_tree_helper(node(R, LT, RT), D, S) :-
     DH is D + 1,                    % Add 1 to the depth
     SR is 0,                        % The new side is 0, looking for the right side of the branch
     print_tree_helper(RT, DH, SR),  % Recursive step, go to the right side, with the new depth, and the flag side to the right(0)
+    spacing_helper(D),              % Print the spaces according to the depth
     print_root(R, S, D),            % Call the function to print the root with the prefixes
     SL is 1,                        % The new side is 1, looking for the left side of the branch
     print_tree_helper(LT, DH, SL).  % Recursive step, go to the left side, with the new depth, and the flag side to the left (1)
@@ -85,7 +86,6 @@ print_tree_helper(node(R, LT, RT), D, S) :-
 % Function to print the root with its prefixes
 % The parameters are: (Root, SideForTheSlash, Depth)
 print_root(R, S, D) :-
-    spacing_helper(D),                % Print the spaces according to the depth
     (  D = 1                        % if depht is 1, means the main root of the tree
     -> write('--'), write(R), nl    % Print --
     );
@@ -105,7 +105,7 @@ spacing_helper(D) :-
     D \= 1,             % Stop printing
     write('     '),     % Print the spaces
     DH is D - 1,        % Recursive step
-    spacing_helper(DH).   % Calling again the function
+    spacing_helper(DH). % Calling again the function
 
 
 %%% Compute the height of the tree. Two parameters, the tree and the resulting height
